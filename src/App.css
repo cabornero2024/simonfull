@@ -3,56 +3,78 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
-
-.container {
-  display:flex;
+ }
+ 
+ 
+ .container {
+  display: flex;
   flex-wrap: wrap;
   width: 600px;
   height: 600px;
   background-color: black;
   padding: 30px;
   border-radius: 320px;
-}
-
-.center-container {
+ }
+ 
+ 
+ .botton-container {
+  display: flex;
+  flex-direction: column;
+ }
+ 
+ 
+ .botton-container button {
+  padding: 20px;
+  margin: 20px;
+  background-color: green;
+ }
+ 
+ 
+ .center-container {
   position: absolute;
   border-radius: 300px;
   background-color: black;
   width: 600px;
   height: 600px;
-}
-
-.pad {
+ }
+ 
+ 
+ .pad {
   width: 250px;
   margin: 25px;
   transition: all 0.1s;
-}
-
-.pad-hover {
+ }
+ 
+ 
+ .pad:hover {
   cursor: pointer;
-}
-
-.pad-0 {
+ }
+ 
+ 
+ .pad-0{
   border-top-left-radius: 300px;
   border-top-right-radius: 20px;
   border-bottom-left-radius: 20px;
-}
-
-.pad-1 {
+ }
+ 
+ 
+ .pad-1{
   border-top-right-radius: 300px;
   border-top-left-radius: 20px;
   border-bottom-right-radius: 20px;
-}
-
-.pad-2 {
+ }
+ 
+ 
+ .pad-2{
   border-bottom-left-radius: 300px;
   border-top-left-radius: 20px;
   border-bottom-right-radius: 20px;
-}
-
-.pad-3 {
+ }
+ 
+ 
+ .pad-3{
   border-bottom-right-radius: 300px;
   border-top-right-radius: 20px;
   border-bottom-left-radius: 20px;
-}
+ }
+ 

@@ -49,12 +49,15 @@ const speedGame = 400;
 
 const [sequence, setSequence] = useState([]);
 const [currentGame, setCurrentGame] = useState([]);
+const [highScore, setHighScore] = useState([]);
+const [lastGame, setLastGame] = useState([]);
 const [isAllowedToPlay, setIsAllowedToPlay] = useState(false);
 const [speed, setSpeed] = useState(speedGame);
 const [turn, setTurn] = useState(0);
 const [pulses, setPulses] = useState(0);
 const [success, setSuccess] = useState(0);
 const [isGameOn, setIsGameOn] = useState(false);
+const [isPlayingSequence, setIsPlayingSequence] = useState(false);
 
 
 const initGame= () => {
@@ -67,6 +70,7 @@ const randomNumber = () => {
   const randomNumber = Math.floor(Math.random() * (maxNumber - minNumber) + minNumber);
   setSequence([...sequence, randomNumber]);
   setTurn(turn+1);
+
 }
 
 const handleClick = (index) => {
@@ -83,6 +87,29 @@ const handleClick = (index) => {
   }
 }
 
+ /*PLAYING SEQUENCE*/
+ const playSequence = (arraySequence) => {
+  if(arraySequence.length > 0) {
+    setIsPlayingSequence(true);
+    arraySequence.map((item, index) => {
+      setTimeout(() => {
+        play({id: colors[item].sound})
+        colors[item].ref.current.style.opacity = (1);
+        setTimeout(() => {
+          colors[item].ref.current.style.opacity = (0.5);
+          if(arraySequence.length -1  === index) {
+            setTimeout(() => {
+              setIsPlayingSequence(false);
+            }, 500);
+          }
+        }, speed / 2 )
+      }, speed * index )  
+    })
+  }
+ 
+}
+
+
 useEffect(() => {
   if (pulses > 0) {
     if (Number (sequence[pulses -1]) === Number(currentGame[pulses - 1])) {
@@ -93,8 +120,13 @@ useEffect(() => {
       play({id:'error'})
       setTimeout(() => {
         if (index) colors[index].ref.current.style.opacity=(0.5);
+        if(sequence.length > highScore.length) {
+          setHighScore(sequence);
+        }
+        setLastGame(sequence)
         setIsGameOn(false);
-      }, speed * 2)
+      }, speed * 2 )
+
     setIsAllowedToPlay(false);
     }
   }
@@ -144,7 +176,7 @@ setIsAllowedToPlay(true);
 return (
   <>
   {
-  isGameOn
+  isGameOn || isPlayingSequence
   ?
   <>
   <div className="header">
@@ -172,9 +204,14 @@ return (
     <div className="header">
     <h1>SUPER SIMON</h1>
     </div>
-    <button onClick={initGame}>START</button>
+    <div className='botton-container'>
+         <button onClick={initGame}>START</button>
+         <button onClick={() => playSequence(highScore)}>HIGH SCORE</button>
+         <button onClick={() => playSequence(lastGame)}>LAST GAME</button>
+       </div>
   </>
  }
  </>
 )
 }
+
